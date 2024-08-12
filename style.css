@@ -3,6 +3,29 @@ main{
     background-color: blueviolet;
     gap: 0;
 }
+button{
+    background-color: #04AA6D;
+    border-radius: 50%;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    box-shadow: 0 5px #999;
+}
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px hsl(0, 0%, 40%);
+    transform: translateY(4px);
+}
+.choice{
+    display: grid;
+}
 .characters_buttons{
     background-color: aqua;
     display: grid;
@@ -16,6 +39,6 @@ main{
     grid-column-end: 3;
 }
 .result{
-    grid-column-start: 2;
+    grid-column-start: 1;
     grid-column-end: 3;
 }

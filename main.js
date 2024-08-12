@@ -12,18 +12,11 @@ main.append(questionDiv);
 
 const answerDiv = document.createElement("div");
 answerDiv.className = "answer";
-/*
-const maskedAnswerWord = document.createElement("h4");
-const word = "HANGMAN";
-const maskedWord = "The word is " + "# ".repeat(word.length);
 
-maskedAnswerWord.innerText = maskedWord;
-answerDiv.append(maskedAnswerWord);
-*/
 const word = "HANGMAN";
 let maskedWord = "#".repeat(word.length);
 
-const maskedAnswerWord = document.createElement("h3");
+const maskedAnswerWord = document.createElement("h2");
 maskedAnswerWord.innerText = maskedWord.split("").join(" ");
 answerDiv.append(maskedAnswerWord);
 
@@ -47,16 +40,6 @@ chooseHeading.innerText = "Choose a character:";
 const buttonsDiv = document.createElement("div");
 buttonsDiv.className = "characters_buttons";
 
-/*const func_1=() => {
-   /* if (word.toLocaleUpperCase().includes (alphabetButton.textContent)){
-        answerWord.textContent.push(alphabetButton.textContent)
-    }
-   for(let i =0 ; i<word.length; i++)
-   if (word.includes (alphabetButton.textContent)){
-    maskedAnswerWord.innerText.split.splice(i, 1, alphabetButton.textContent)
-}
-    */
-
 const imageDiv = document.createElement("div");
 imageDiv.className = "result";
 
@@ -72,13 +55,29 @@ const hangmanImages = [
   "hangman_3.jpg",
   "hangman_4.jpg",
   "hangman_5.jpg",
-  "hangman.jpg", 
+  "hangman_GameOver.jpg",
 ];
 
 let incorrectGuesses = 0;
 const maxIncorrectGuesses = hangmanImages.length - 1;
+let gameOver = false;
 
-const func_1 = (e) => {
+const endGame = () => {
+  const buttons = document.querySelectorAll(".characters_buttons button");
+  buttons.forEach((button) => {
+    button.disabled = true;
+    button.style.opacity = "0.6";
+    button.style.cursor = "not-allowed";
+  });
+    const playAgainButton = document.createElement("button");
+    playAgainButton.id = ("play_again")
+    playAgainButton.textContent = ("Play Again")
+    questionDiv.append(playAgainButton);
+  
+};
+
+
+const click_func = (e) => {
   const chosenChar = e.target.textContent;
   let newMaskedWord = maskedWord.split("");
   let isCorrectGuess = false;
@@ -95,14 +94,16 @@ const func_1 = (e) => {
     maskedAnswerWord.innerText = maskedWord.split("").join(" ");
 
     if (maskedWord === word) {
-      imageResult.src = "hangman_won.jpg"; 
+      imageResult.src = "hangman_won.jpg";
+      endGame();
     }
   } else {
     incorrectGuesses++;
-    if (incorrectGuesses < hangmanImages.length) {
+    if (incorrectGuesses < hangmanImages.length - 1) {
       imageResult.src = hangmanImages[incorrectGuesses];
     } else {
       imageResult.src = hangmanImages[maxIncorrectGuesses];
+      endGame();
     }
   }
 
@@ -110,13 +111,22 @@ const func_1 = (e) => {
   e.target.style.opacity = "0.6";
   e.target.style.cursor = "not-allowed";
 };
+const hover_func = (e) => {
+  e.target.style.backgroundColor = "#3e8e41";
+};
+
+const removeHover_func = (e) => {
+  e.target.style.backgroundColor = "#04AA6D";
+};
 
 for (let i = 0; i < 26; i++) {
   const alphabetButton = document.createElement("button");
   alphabetButton.textContent = String.fromCharCode(65 + i); // A = 65, B = 66, ..., Z = 90
   buttonsDiv.append(alphabetButton);
 
-  alphabetButton.addEventListener("click", func_1);
+  alphabetButton.addEventListener("click", click_func);
+  alphabetButton.addEventListener("mouseover", hover_func);
+  alphabetButton.addEventListener("mouseout", removeHover_func);
 }
 
 choiceDiv.append(chooseHeading);

@@ -1,0 +1,21 @@
+main{
+    display: grid;
+    background-color: blueviolet;
+    gap: 0;
+}
+.characters_buttons{
+    background-color: aqua;
+    display: grid;
+    grid-template-columns: repeat(13,40px);
+    gap: 10px;
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.choose{
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+.result{
+    grid-column-start: 2;
+    grid-column-end: 3;
+}

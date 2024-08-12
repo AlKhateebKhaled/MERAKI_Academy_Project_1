@@ -20,25 +20,25 @@ button{
 
 .button:active {
     background-color: #3e8e41;
-    box-shadow: 0 5px hsl(0, 0%, 40%);
+    box-shadow: 0 2px hsl(0, 0%, 40%);
     transform: translateY(4px);
 }
 .choice{
     display: grid;
+    gap: 10px;
 }
 .characters_buttons{
     background-color: aqua;
     display: grid;
-    grid-template-columns: repeat(13,40px);
-    gap: 10px;
-    grid-column-start: 1;
-    grid-column-end: 2;
-}
-.choose{
-    grid-column-start: 1;
-    grid-column-end: 3;
+    grid-template-columns: repeat(13,1fr);
+    
+
 }
 .result{
-    grid-column-start: 1;
-    grid-column-end: 3;
+    display: flex;
+    justify-content: center;
+}
+.result img {
+    width: auto; 
+    height: 250px; 
 }

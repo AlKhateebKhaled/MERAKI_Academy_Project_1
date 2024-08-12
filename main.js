@@ -56,22 +56,59 @@ buttonsDiv.className = "characters_buttons";
     maskedAnswerWord.innerText.split.splice(i, 1, alphabetButton.textContent)
 }
     */
+
+const imageDiv = document.createElement("div");
+imageDiv.className = "result";
+
+const imageResult = document.createElement("img");
+imageResult.src = "hangman_start.jpg";
+imageResult.alt = "hangman result";
+imageDiv.append(imageResult);
+
+const hangmanImages = [
+  "hangman_start.jpg",
+  "hangman_1.jpg",
+  "hangman_2.jpg",
+  "hangman_3.jpg",
+  "hangman_4.jpg",
+  "hangman_5.jpg",
+  "hangman.jpg", 
+];
+
+let incorrectGuesses = 0;
+const maxIncorrectGuesses = hangmanImages.length - 1;
+
 const func_1 = (e) => {
-    const chosenChar = e.target.textContent; 
-    let newMaskedWord = maskedWord.split(""); 
-  
-    for (let i = 0; i < word.length; i++) {
-      if (word[i] === chosenChar) {
-        newMaskedWord[i] = chosenChar; 
-      }
+  const chosenChar = e.target.textContent;
+  let newMaskedWord = maskedWord.split("");
+  let isCorrectGuess = false;
+
+  for (let i = 0; i < word.length; i++) {
+    if (word[i] === chosenChar) {
+      newMaskedWord[i] = chosenChar;
+      isCorrectGuess = true;
     }
-  
-    maskedWord = newMaskedWord.join(""); 
-    maskedAnswerWord.innerText = maskedWord.split("").join(" "); 
-  
-    e.target.disabled = true; 
-    e.target.style.opacity = "0.6";
-    e.target.style.cursor = "not-allowed";
+  }
+
+  if (isCorrectGuess) {
+    maskedWord = newMaskedWord.join("");
+    maskedAnswerWord.innerText = maskedWord.split("").join(" ");
+
+    if (maskedWord === word) {
+      imageResult.src = "hangman_won.jpg"; 
+    }
+  } else {
+    incorrectGuesses++;
+    if (incorrectGuesses < hangmanImages.length) {
+      imageResult.src = hangmanImages[incorrectGuesses];
+    } else {
+      imageResult.src = hangmanImages[maxIncorrectGuesses];
+    }
+  }
+
+  e.target.disabled = true;
+  e.target.style.opacity = "0.6";
+  e.target.style.cursor = "not-allowed";
 };
 
 for (let i = 0; i < 26; i++) {
@@ -79,19 +116,9 @@ for (let i = 0; i < 26; i++) {
   alphabetButton.textContent = String.fromCharCode(65 + i); // A = 65, B = 66, ..., Z = 90
   buttonsDiv.append(alphabetButton);
 
-  alphabetButton.addEventListener("click",func_1)
+  alphabetButton.addEventListener("click", func_1);
 }
-
-const imageDiv = document.createElement("div");
-imageDiv.className = "result";
-
-const imageResult = document.createElement("img");
-imageResult.src = "";
-imageResult.alt = "hangman result";
-imageDiv.append(imageResult);
 
 choiceDiv.append(chooseHeading);
 choiceDiv.append(buttonsDiv);
 choiceDiv.append(imageDiv);
-
-

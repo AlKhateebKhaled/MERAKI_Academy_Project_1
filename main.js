@@ -62,20 +62,42 @@ let incorrectGuesses = 0;
 const maxIncorrectGuesses = hangmanImages.length - 1;
 let gameOver = false;
 
-const endGame = () => {
+const enableAllButtons = () => {
   const buttons = document.querySelectorAll(".characters_buttons button");
   buttons.forEach((button) => {
     button.disabled = true;
     button.style.opacity = "0.6";
     button.style.cursor = "not-allowed";
   });
-    const playAgainButton = document.createElement("button");
-    playAgainButton.id = ("play_again")
-    playAgainButton.textContent = ("Play Again")
-    questionDiv.append(playAgainButton);
-  
 };
 
+const playAgainFunc = () => {
+  const playAgainButton = document.createElement("button");
+  playAgainButton.id = "play_again";
+  playAgainButton.textContent = "Play Again";
+
+  questionDiv.append(playAgainButton);
+  playAgainButton.addEventListener("click", () => {
+    resetGame();
+    playAgainButton.remove();
+  });
+  playAgainButton.addEventListener("mouseover", hover_func);
+  playAgainButton.addEventListener("mouseout", removeHover_func);
+};
+
+const resetGame = () => {
+  incorrectGuesses = 0;
+  gameOver = false;
+  maskedWord = "#".repeat(word.length);
+  maskedAnswerWord.innerText = maskedWord.split("").join(" ");
+  imageResult.src = hangmanImages[0];
+  const buttons = document.querySelectorAll(".characters_buttons button");
+  buttons.forEach((button) => {
+    button.disabled = false;
+    button.style.opacity = "1";
+    button.style.cursor = "pointer";
+  });
+};
 
 const click_func = (e) => {
   const chosenChar = e.target.textContent;
@@ -95,7 +117,8 @@ const click_func = (e) => {
 
     if (maskedWord === word) {
       imageResult.src = "hangman_won.jpg";
-      endGame();
+      enableAllButtons();
+      playAgainFunc();
     }
   } else {
     incorrectGuesses++;
@@ -103,7 +126,8 @@ const click_func = (e) => {
       imageResult.src = hangmanImages[incorrectGuesses];
     } else {
       imageResult.src = hangmanImages[maxIncorrectGuesses];
-      endGame();
+      enableAllButtons();
+      playAgainFunc();
     }
   }
 

@@ -1,12 +1,20 @@
 const main = document.querySelector("main");
 
+let points = 0;
+
 const questionDiv = document.createElement("div");
 questionDiv.className = "question";
 
 const questionHeading = document.createElement("h3");
 questionHeading.className = "Guess";
 questionHeading.innerText = "Guess the word";
+
+const totalResult = document.createElement("h4");
+totalResult.className = "Guess";
+totalResult.innerText = "Total Points : " + points;
+
 questionDiv.append(questionHeading);
+questionDiv.append(totalResult);
 
 let word = "";
 let maskedWord = "";
@@ -68,8 +76,8 @@ const level_Func = (e) => {
   hint.innerText = "";
   hintBtn.disabled = false;
 };
-const levelDiv = document.createElement("div")
-levelDiv.className = ("level")
+const levelDiv = document.createElement("div");
+levelDiv.className = "level";
 
 const levelLabel = document.createElement("LABEL");
 levelLabel.innerText = "First choose Level : ";
@@ -100,12 +108,12 @@ levelSelect.add(masterLevel);
 
 levelSelect.addEventListener("change", level_Func);
 
-levelDiv.append(levelLabel)
-levelDiv.append(levelSelect)
+levelDiv.append(levelLabel);
+levelDiv.append(levelSelect);
 
 questionDiv.append(levelDiv);
 
-const hintDiv = document.createElement("div")
+const hintDiv = document.createElement("div");
 hintDiv.className = "hintDiv";
 
 const hint = document.createElement("h3");
@@ -277,6 +285,8 @@ const click_func = (e) => {
       disableAllButtons();
       levelSelect.disabled = true;
       hintBtn.disabled = true;
+      points++;
+      totalResult.innerText = "Total Points : " + points;
       playAgainFunc();
     }
   } else {
@@ -290,6 +300,8 @@ const click_func = (e) => {
       disableAllButtons();
       levelSelect.disabled = true;
       hintBtn.disabled = true;
+      points--;
+      totalResult.innerText = "Total Points : " + points;
       playAgainFunc();
     }
   }

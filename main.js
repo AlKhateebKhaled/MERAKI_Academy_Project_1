@@ -49,7 +49,6 @@ const hardWords = [
   "Brick",
 ];
 
-
 const level_Func = (e) => {
   if (e.target.value === "Easy") {
     word = easyWords[Math.floor(Math.random() * easyWords.length)];
@@ -69,6 +68,8 @@ const level_Func = (e) => {
   hint.innerText = "";
   hintBtn.disabled = false;
 };
+const levelDiv = document.createElement("div")
+levelDiv.className = ("level")
 
 const levelLabel = document.createElement("LABEL");
 levelLabel.innerText = "First choose Level : ";
@@ -79,7 +80,6 @@ const initialOption = document.createElement("option");
 const easyLevel = document.createElement("option");
 const hardLevel = document.createElement("option");
 const masterLevel = document.createElement("option");
-
 
 initialOption.value = "";
 initialOption.innerText = "Select Level";
@@ -98,11 +98,15 @@ levelSelect.add(easyLevel);
 levelSelect.add(hardLevel);
 levelSelect.add(masterLevel);
 
-
 levelSelect.addEventListener("change", level_Func);
 
-questionDiv.append(levelLabel);
-questionDiv.append(levelSelect);
+levelDiv.append(levelLabel)
+levelDiv.append(levelSelect)
+
+questionDiv.append(levelDiv);
+
+const hintDiv = document.createElement("div")
+hintDiv.className = "hintDiv";
 
 const hint = document.createElement("h3");
 hint.className = "hint";
@@ -111,38 +115,45 @@ hint.innerText = "";
 const hint_func = () => {
   if (levelStatus === "Easy") {
     if (easyWords.slice(0, 4).includes(word)) {
-      hint.innerText = "Animal";
+      hint.innerText = "Hint : Animal";
     } else if (easyWords.slice(4, 8).includes(word)) {
-      hint.innerText = "Car";
+      hint.innerText = "Hint : Car";
     } else if (easyWords.slice(8, 12).includes(word)) {
-      hint.innerText = "Body Part";
+      hint.innerText = "Hint : Body Part";
     } else if (easyWords.slice(12).includes(word)) {
-      hint.innerText = "Color";
+      hint.innerText = "Hint : Color";
     }
   } else if (levelStatus === "Hard") {
     if (hardWords.slice(0, 4).includes(word)) {
-      hint.innerText = "Animal";
+      hint.innerText = "Hint : Animal";
     } else if (hardWords.slice(4, 8).includes(word)) {
-      hint.innerText = "Car";
+      hint.innerText = "Hint : Car";
     } else if (hardWords.slice(8, 12).includes(word)) {
-      hint.innerText = "Body Part";
+      hint.innerText = "Hint : Body Part";
     } else if (hardWords.slice(12).includes(word)) {
-      hint.innerText = "Color";
+      hint.innerText = "Hint : Color";
     }
-  }
-  else if (levelStatus === "Master"){
+  } else if (levelStatus === "Master") {
     hint.innerText = "Hint not available for this level.";
   }
 };
 
 const hintBtn = document.createElement("button");
 hintBtn.className = "hintBtn";
-hintBtn.innerText = "hint";
+hintBtn.innerText = "Hint";
 hintBtn.disabled = true;
 hintBtn.addEventListener("click", hint_func);
 
-questionDiv.append(hintBtn);
-questionDiv.append(hint);
+hintDiv.append(hintBtn);
+hintDiv.append(hint);
+
+questionDiv.append(hintDiv);
+
+const correctAnswer = document.createElement("h2");
+correctAnswer.className = "correctAnswer";
+correctAnswer.innerText = "";
+
+questionDiv.append(correctAnswer);
 
 main.append(questionDiv);
 
@@ -229,6 +240,7 @@ const playAgainFunc = () => {
 };
 
 const resetGame = () => {
+  correctAnswer.innerText = "";
   incorrectGuesses = 0;
   gameOver = false;
   maskedWord = "#".repeat(word.length);
@@ -261,6 +273,7 @@ const click_func = (e) => {
     if (maskedWord === word) {
       imageResult.src = "hangman_won.jpg";
 
+      correctAnswer.innerText = "Good Job , The correct answer is: " + word;
       disableAllButtons();
       levelSelect.disabled = true;
       hintBtn.disabled = true;
@@ -273,6 +286,7 @@ const click_func = (e) => {
     } else {
       imageResult.src = hangmanImages[maxIncorrectGuesses];
 
+      correctAnswer.innerText = "Hard Luck , The correct answer is: " + word;
       disableAllButtons();
       levelSelect.disabled = true;
       hintBtn.disabled = true;
@@ -310,7 +324,7 @@ buttons.forEach((button) => {
 
 const backgroundMusic = document.querySelector("#background-music");
 const muteButton = document.querySelector("#mute-button");
-let isMuted = false;
+let isMuted = true;
 
 backgroundMusic.play();
 

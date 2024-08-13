@@ -56,18 +56,44 @@ const hardWords = [
   "LILAC",
   "Brick",
 ];
+const timer = () => {
+
+  let countdownNumber = 30;
+  const countdownInterval = setInterval(() => {
+    countdownDiv.textContent = "Timer :" + countdownNumber + " seconds";
+    countdownNumber--;
+
+    if (countdownNumber < 0) {
+      clearInterval(countdownInterval);
+      countdownDiv.textContent = "Time Out";
+
+      imageResult.src = hangmanImages[maxIncorrectGuesses];
+
+      correctAnswer.innerText = "Hard Luck , The correct answer is: " + word;
+      disableAllButtons();
+      levelSelect.disabled = true;
+      hintBtn.disabled = true;
+      points--;
+      totalResult.innerText = "Total Points : " + points;
+      playAgainFunc();
+    }
+  }, 1000);
+};
 
 const level_Func = (e) => {
   if (e.target.value === "Easy") {
     word = easyWords[Math.floor(Math.random() * easyWords.length)];
     levelStatus = "Easy";
+    timer();
   } else if (e.target.value === "Hard") {
     word = hardWords[Math.floor(Math.random() * hardWords.length)];
     levelStatus = "Hard";
+    timer();
   } else if (e.target.value === "Master") {
     word = hardWords[Math.floor(Math.random() * hardWords.length)];
     levelStatus = "Master";
-  }
+    timer();
+ }
 
   maskedWord = "#".repeat(word.length);
   maskedAnswerWord.innerText = maskedWord.split("").join(" ");
@@ -116,7 +142,7 @@ questionDiv.append(levelDiv);
 const hintDiv = document.createElement("div");
 hintDiv.className = "hintDiv";
 
-const hint = document.createElement("h3");
+const hint = document.createElement("h4");
 hint.className = "hint";
 hint.innerText = "";
 
@@ -162,6 +188,13 @@ correctAnswer.className = "correctAnswer";
 correctAnswer.innerText = "";
 
 questionDiv.append(correctAnswer);
+
+const countdownContainerDiv = document.createElement("div");
+const countdownDiv = document.createElement("div");
+
+countdownContainerDiv.append(countdownDiv);
+
+questionDiv.append(countdownContainerDiv);
 
 main.append(questionDiv);
 
@@ -243,6 +276,8 @@ const playAgainFunc = () => {
     hint.innerText = "";
     hintBtn.disabled = true;
     levelSelect.disabled = false;
+    totalResult.innerText = "";
+    countdownDiv.textContent = "";
     playAgainButton.remove();
   });
 };

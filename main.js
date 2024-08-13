@@ -9,7 +9,8 @@ questionHeading.innerText = "Guess the word";
 questionDiv.append(questionHeading);
 
 let word = "";
-let maskedWord="";
+let maskedWord = "";
+let levelStatus = "";
 const maskedAnswerWord = document.createElement("h2");
 const easyWords = [
   "COW",
@@ -48,39 +49,100 @@ const hardWords = [
   "Brick",
 ];
 
+
 const level_Func = (e) => {
-  if (e.target.innerText === "Easy") {
+  if (e.target.value === "Easy") {
     word = easyWords[Math.floor(Math.random() * easyWords.length)];
-  } else {
+    levelStatus = "Easy";
+  } else if (e.target.value === "Hard") {
     word = hardWords[Math.floor(Math.random() * hardWords.length)];
+    levelStatus = "Hard";
+  } else if (e.target.value === "Master") {
+    word = hardWords[Math.floor(Math.random() * hardWords.length)];
+    levelStatus = "Master";
   }
 
   maskedWord = "#".repeat(word.length);
   maskedAnswerWord.innerText = maskedWord.split("").join(" ");
   resetGame();
-  enableAllButtons()
+  enableAllButtons();
+  hint.innerText = "";
+  hintBtn.disabled = false;
 };
 
 const levelLabel = document.createElement("LABEL");
-levelLabel.innerText = "choose Level : ";
+levelLabel.innerText = "First choose Level : ";
 const levelSelect = document.createElement("SELECT");
+levelSelect.className = "select_level";
+
 const initialOption = document.createElement("option");
-
-
 const easyLevel = document.createElement("option");
 const hardLevel = document.createElement("option");
+const masterLevel = document.createElement("option");
+
+
+initialOption.value = "";
 initialOption.innerText = "Select Level";
+easyLevel.value = "Easy";
 easyLevel.innerText = "Easy";
-hardLevel.innerText = "hard";
+hardLevel.value = "Hard";
+hardLevel.innerText = "Hard";
+masterLevel.value = "Master";
+masterLevel.innerText = "Master";
+
 initialOption.disabled = true;
 initialOption.selected = true;
+
 levelSelect.add(initialOption);
 levelSelect.add(easyLevel);
 levelSelect.add(hardLevel);
+levelSelect.add(masterLevel);
+
+
 levelSelect.addEventListener("change", level_Func);
 
 questionDiv.append(levelLabel);
 questionDiv.append(levelSelect);
+
+const hint = document.createElement("h3");
+hint.className = "hint";
+hint.innerText = "";
+
+const hint_func = () => {
+  if (levelStatus === "Easy") {
+    if (easyWords.slice(0, 4).includes(word)) {
+      hint.innerText = "Animal";
+    } else if (easyWords.slice(4, 8).includes(word)) {
+      hint.innerText = "Car";
+    } else if (easyWords.slice(8, 12).includes(word)) {
+      hint.innerText = "Body Part";
+    } else if (easyWords.slice(12).includes(word)) {
+      hint.innerText = "Color";
+    }
+  } else if (levelStatus === "Hard") {
+    if (hardWords.slice(0, 4).includes(word)) {
+      hint.innerText = "Animal";
+    } else if (hardWords.slice(4, 8).includes(word)) {
+      hint.innerText = "Car";
+    } else if (hardWords.slice(8, 12).includes(word)) {
+      hint.innerText = "Body Part";
+    } else if (hardWords.slice(12).includes(word)) {
+      hint.innerText = "Color";
+    }
+  }
+  else if (levelStatus === "Master"){
+    hint.innerText = "Hint not available for this level.";
+  }
+};
+
+const hintBtn = document.createElement("button");
+hintBtn.className = "hintBtn";
+hintBtn.innerText = "hint";
+hintBtn.disabled = true;
+hintBtn.addEventListener("click", hint_func);
+
+questionDiv.append(hintBtn);
+questionDiv.append(hint);
 
 main.append(questionDiv);
 
@@ -131,14 +193,14 @@ let incorrectGuesses = 0;
 const maxIncorrectGuesses = hangmanImages.length - 1;
 let gameOver = false;
 
-const enableAllButtons =() => {
+const enableAllButtons = () => {
   const buttons = document.querySelectorAll(".characters_buttons button");
   buttons.forEach((button) => {
     button.disabled = false;
     button.style.opacity = "1";
     button.style.cursor = "pointer";
-  })
-}
+  });
+};
 
 const disableAllButtons = () => {
   const buttons = document.querySelectorAll(".characters_buttons button");
@@ -157,8 +219,11 @@ const playAgainFunc = () => {
   questionDiv.append(playAgainButton);
   playAgainButton.addEventListener("click", () => {
     resetGame();
-    disableAllButtons()
+    disableAllButtons();
     levelSelect.selectedIndex = 0;
+    hint.innerText = "";
+    hintBtn.disabled = true;
+    levelSelect.disabled = false;
     playAgainButton.remove();
   });
 };
@@ -197,6 +262,8 @@ const click_func = (e) => {
       imageResult.src = "hangman_won.jpg";
 
       disableAllButtons();
+      levelSelect.disabled = true;
+      hintBtn.disabled = true;
       playAgainFunc();
     }
   } else {
@@ -207,6 +274,8 @@ const click_func = (e) => {
       imageResult.src = hangmanImages[maxIncorrectGuesses];
 
       disableAllButtons();
+      levelSelect.disabled = true;
+      hintBtn.disabled = true;
       playAgainFunc();
     }
   }
@@ -243,7 +312,7 @@ const backgroundMusic = document.querySelector("#background-music");
 const muteButton = document.querySelector("#mute-button");
 let isMuted = false;
 
-backgroundMusic.play();  
+backgroundMusic.play();
 
 muteButton.addEventListener("click", () => {
   isMuted = !isMuted;

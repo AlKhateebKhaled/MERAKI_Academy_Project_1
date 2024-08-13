@@ -64,9 +64,11 @@ button:active {
     transform: translateY(-3px);
 }
 
-.answer{
-    display: grid;
+.question{
+    display: flex;
+    flex-direction: column;
 }
+
 .choice{
     display: grid;
     gap: 10px;

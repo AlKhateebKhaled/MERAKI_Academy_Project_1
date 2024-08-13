@@ -8,20 +8,76 @@ questionHeading.className = "Guess";
 questionHeading.innerText = "Guess the word";
 questionDiv.append(questionHeading);
 
+let word = "";
+let maskedWord="";
+const maskedAnswerWord = document.createElement("h2");
+const easyWords = [
+  "COW",
+  "FOX",
+  "CAT",
+  "LION",
+  "KIA",
+  "HONDA",
+  "TOYOTA",
+  "JEEP",
+  "ARM",
+  "LEG",
+  "EYE",
+  "NOSE",
+  "RED",
+  "BLUE",
+  "GREEN",
+  "BLACK",
+];
+const hardWords = [
+  "Crocodile",
+  "CHEETAH",
+  "Elephant",
+  "SQUIRREL",
+  "CHEVORLET",
+  "MERCEDES",
+  "CADILLAC",
+  "VOLKSWAGEN",
+  "SHOULDER",
+  "STOMACH",
+  "KIDNEY",
+  "TONGUE",
+  "BEIGE",
+  "TURQUOISE",
+  "LILAC",
+  "Brick",
+];
+
+const level_Func = (e) => {
+  if (e.target.innerText === "Easy") {
+    word = easyWords[Math.floor(Math.random() * easyWords.length)];
+  } else {
+    word = hardWords[Math.floor(Math.random() * hardWords.length)];
+  }
+
+  maskedWord = "#".repeat(word.length);
+  maskedAnswerWord.innerText = maskedWord.split("").join(" ");
+  resetGame();
+  enableAllButtons()
+};
+
 const levelLabel = document.createElement("LABEL");
-levelLabel.innerText="choose Level : "
+levelLabel.innerText = "choose Level : ";
 const levelSelect = document.createElement("SELECT");
+const initialOption = document.createElement("option");
+
+
 const easyLevel = document.createElement("option");
 const hardLevel = document.createElement("option");
+initialOption.innerText = "Select Level";
 easyLevel.innerText = "Easy";
 hardLevel.innerText = "hard";
+initialOption.disabled = true;
+initialOption.selected = true;
+levelSelect.add(initialOption);
 levelSelect.add(easyLevel);
 levelSelect.add(hardLevel);
-
-let word = "";
-const easyWords=["COW","FOX","CAT","LION","KIA","HONDA","TOYOTA","JEEP","ARM","LEG","EYE","NOSE","RED","BLUE","GREEN","BLACK"];
-const HARDWords=["Crocodile","CHEETAH","Elephant","SQUIRREL","CHEVORLET","MERCEDES","CADILLAC","VOLKSWAGEN","SHOULDER","STOMACH","KIDNEY","TONGUE","BEIGE","TURQUOISE","LILAC","Brick"];
-word=easyWords[Math.floor(Math.random() * easyWords.length)];
+levelSelect.addEventListener("change", level_Func);
 
 questionDiv.append(levelLabel);
 questionDiv.append(levelSelect);
@@ -31,14 +87,7 @@ main.append(questionDiv);
 const answerDiv = document.createElement("div");
 answerDiv.className = "answer";
 
-
-let maskedWord = "#".repeat(word.length);
-
-const maskedAnswerWord = document.createElement("h2");
-maskedAnswerWord.innerText = maskedWord.split("").join(" ");
 answerDiv.append(maskedAnswerWord);
-
-
 
 main.append(answerDiv);
 
@@ -82,7 +131,16 @@ let incorrectGuesses = 0;
 const maxIncorrectGuesses = hangmanImages.length - 1;
 let gameOver = false;
 
-const enableAllButtons = () => {
+const enableAllButtons =() => {
+  const buttons = document.querySelectorAll(".characters_buttons button");
+  buttons.forEach((button) => {
+    button.disabled = false;
+    button.style.opacity = "1";
+    button.style.cursor = "pointer";
+  })
+}
+
+const disableAllButtons = () => {
   const buttons = document.querySelectorAll(".characters_buttons button");
   buttons.forEach((button) => {
     button.disabled = true;
@@ -99,9 +157,10 @@ const playAgainFunc = () => {
   questionDiv.append(playAgainButton);
   playAgainButton.addEventListener("click", () => {
     resetGame();
+    disableAllButtons()
+    levelSelect.selectedIndex = 0;
     playAgainButton.remove();
   });
-  
 };
 
 const resetGame = () => {
@@ -137,7 +196,7 @@ const click_func = (e) => {
     if (maskedWord === word) {
       imageResult.src = "hangman_won.jpg";
 
-      enableAllButtons();
+      disableAllButtons();
       playAgainFunc();
     }
   } else {
@@ -147,7 +206,7 @@ const click_func = (e) => {
     } else {
       imageResult.src = hangmanImages[maxIncorrectGuesses];
 
-      enableAllButtons();
+      disableAllButtons();
       playAgainFunc();
     }
   }
@@ -160,6 +219,9 @@ const click_func = (e) => {
 for (let i = 0; i < 26; i++) {
   const alphabetButton = document.createElement("button");
   alphabetButton.textContent = String.fromCharCode(65 + i); // A = 65, B = 66, ..., Z = 90
+  alphabetButton.disabled = true;
+  alphabetButton.opacity = "0.6";
+  alphabetButton.cursor = "not-allowed";
   buttonsDiv.append(alphabetButton);
 
   alphabetButton.addEventListener("click", click_func);
@@ -180,6 +242,8 @@ buttons.forEach((button) => {
 const backgroundMusic = document.querySelector("#background-music");
 const muteButton = document.querySelector("#mute-button");
 let isMuted = false;
+
+backgroundMusic.play();  
 
 muteButton.addEventListener("click", () => {
   isMuted = !isMuted;

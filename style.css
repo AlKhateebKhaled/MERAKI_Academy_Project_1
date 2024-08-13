@@ -5,7 +5,7 @@
 }
 
 header{
-    background-color: #2C3E50; /* Dark Blue-Gray */
+    background-color: #2C3E50; 
     padding: 20px;
     text-align: center;
     color: white;
@@ -21,9 +21,9 @@ main{
     align-items: center;
 }
 button{
-    background-color: #2980B9; /* Blue */
+    background-color: #2980B9; 
     border-radius: 20%;
-    color: #ECF0F1; /* Light Gray */
+    color: #ECF0F1; 
     padding: 10px ;
     text-align: center;
     text-decoration: none;
@@ -31,11 +31,15 @@ button{
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-    box-shadow: 0 5px #a9becc; /* Darker Blue for shadow */
+    box-shadow: 0 5px #a9becc; }
+
+button[disabled] {
+        cursor: not-allowed;
+        opacity: 0.6;
 
 }
 button:hover {
-    background-color: #3498DB; /* Lighter Blue */
+    background-color: #3498DB;
     transform: translateY(-3px);
 }
 button:active {
@@ -43,9 +47,9 @@ button:active {
 
 
 #play_again{
-    background-color: #E74C3C; /* Red */
+    background-color: #E74C3C; 
     border-radius: 10%;
-    color: #ECF0F1; /* Light Gray */
+    color: #ECF0F1; 
     padding: 15px;
     text-align: center;
     text-decoration: none;
@@ -53,10 +57,10 @@ button:active {
     font-size: 20px;
     margin: 4px 2px;
     cursor: pointer;
-    box-shadow: 0 5px #cfa5a0; /* Darker Red for shadow */
+    box-shadow: 0 5px #cfa5a0; 
 }
 #play_again:hover {
-    background-color: #F67280; /* Lighter Red */
+    background-color: #F67280; 
     transform: translateY(-3px);
 }
 
@@ -91,8 +95,8 @@ button:active {
     position: fixed;
     top: 10px;
     right: 10px;
-    background-color: #27AE60; /* Green */
-    color: #ECF0F1; /* Light Gray */
+    background-color: #27AE60; 
+    color: #ECF0F1; 
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
@@ -104,7 +108,7 @@ button:active {
     transform: translateY(4px);}
 
 .mute-button:hover {
-    background-color: #2ECC71; /* Lighter Green */
+    background-color: #2ECC71; 
 }
 
 .answer h2 {

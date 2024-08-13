@@ -1,48 +1,73 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+
+header{
+    background-color: #2C3E50; /* Dark Blue-Gray */
+    padding: 20px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 main{
     display: grid;
-    background-color: blueviolet;
-    gap: 0;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    background-color: #f0f0f5;
+    padding: 10px;
+    align-items: center;
 }
 button{
-    background-color: #04AA6D;
-    border-radius: 50%;
-    color: white;
-    padding: 10px 10px;
+    background-color: #2980B9; /* Blue */
+    border-radius: 20%;
+    color: #ECF0F1; /* Light Gray */
+    padding: 10px ;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-    box-shadow: 0 5px #999;
-}
+    box-shadow: 0 5px #a9becc; /* Darker Blue for shadow */
 
-.button:active {
-    background-color: #3e8e41;
-    box-shadow: 0 2px hsl(0, 0%, 40%);
-    transform: translateY(4px);
 }
+button:hover {
+    background-color: #3498DB; /* Lighter Blue */
+    transform: translateY(-3px);
+}
+button:active {
+    transform: translateY(4px);}
+
+
 #play_again{
-    background-color: #04AA6D;
+    background-color: #E74C3C; /* Red */
     border-radius: 10%;
-    color: white;
-    padding: 10px 10px;
+    color: #ECF0F1; /* Light Gray */
+    padding: 15px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 20px;
     margin: 4px 2px;
     cursor: pointer;
-    box-shadow: 0 5px #999;
+    box-shadow: 0 5px #cfa5a0; /* Darker Red for shadow */
+}
+#play_again:hover {
+    background-color: #F67280; /* Lighter Red */
+    transform: translateY(-3px);
 }
 .choice{
     display: grid;
     gap: 10px;
+    padding: 10px;
+
 }
 .characters_buttons{
-    background-color: aqua;
     display: grid;
-    grid-template-columns: repeat(13,1fr);
+    grid-template-columns: repeat(9,1fr);
     gap: 10px;
     
 
@@ -52,25 +77,41 @@ button{
     justify-content: center;
 }
 .result img {
-    width: auto; 
-    height: 250px; 
+    max-width: 100%;
+    height: 400px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
 }
 
 .mute-button {
     position: fixed;
     top: 10px;
     right: 10px;
-    background-color: #f44336;
-    color: white;
+    background-color: #27AE60; /* Green */
+    color: #ECF0F1; /* Light Gray */
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
+    box-shadow: 0 4px rgba(0, 0, 0, 0.2);
 }
 .mute-button:active {
     transform: translateY(4px);}
 
 .mute-button:hover {
-    background-color: #d32f2f;
+    background-color: #2ECC71; /* Lighter Green */
+}
+
+.answer h2 {
+    text-align: center;
+}
+.question h3 {
+    font-size: 24px;
+    text-align: center;
+}
+.choose {
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 10px;
 }

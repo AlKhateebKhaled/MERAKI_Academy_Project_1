@@ -81,8 +81,7 @@ const playAgainFunc = () => {
     resetGame();
     playAgainButton.remove();
   });
-  playAgainButton.addEventListener("mouseover", hover_func);
-  playAgainButton.addEventListener("mouseout", removeHover_func);
+  
 };
 
 const resetGame = () => {
@@ -117,6 +116,7 @@ const click_func = (e) => {
 
     if (maskedWord === word) {
       imageResult.src = "hangman_won.jpg";
+
       enableAllButtons();
       playAgainFunc();
     }
@@ -126,6 +126,7 @@ const click_func = (e) => {
       imageResult.src = hangmanImages[incorrectGuesses];
     } else {
       imageResult.src = hangmanImages[maxIncorrectGuesses];
+
       enableAllButtons();
       playAgainFunc();
     }
@@ -135,13 +136,6 @@ const click_func = (e) => {
   e.target.style.opacity = "0.6";
   e.target.style.cursor = "not-allowed";
 };
-const hover_func = (e) => {
-  e.target.style.backgroundColor = "#3e8e41";
-};
-
-const removeHover_func = (e) => {
-  e.target.style.backgroundColor = "#04AA6D";
-};
 
 for (let i = 0; i < 26; i++) {
   const alphabetButton = document.createElement("button");
@@ -149,15 +143,13 @@ for (let i = 0; i < 26; i++) {
   buttonsDiv.append(alphabetButton);
 
   alphabetButton.addEventListener("click", click_func);
-  alphabetButton.addEventListener("mouseover", hover_func);
-  alphabetButton.addEventListener("mouseout", removeHover_func);
 }
 
 choiceDiv.append(chooseHeading);
 choiceDiv.append(buttonsDiv);
-choiceDiv.append(imageDiv);
+main.append(imageDiv);
 
-const clickSound = new Audio("click.wav");
+const clickSound = document.querySelector("#click-sound");
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
@@ -165,11 +157,11 @@ buttons.forEach((button) => {
   });
 });
 
-const backgroundMusic = document.querySelector('#background-music');
-const muteButton = document.querySelector('#mute-button');
+const backgroundMusic = document.querySelector("#background-music");
+const muteButton = document.querySelector("#mute-button");
 let isMuted = false;
 
-muteButton.addEventListener('click', () => {
-    isMuted = !isMuted;
-    backgroundMusic.muted = isMuted;
+muteButton.addEventListener("click", () => {
+  isMuted = !isMuted;
+  backgroundMusic.muted = isMuted;
 });

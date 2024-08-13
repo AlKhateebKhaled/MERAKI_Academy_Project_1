@@ -8,17 +8,37 @@ questionHeading.className = "Guess";
 questionHeading.innerText = "Guess the word";
 questionDiv.append(questionHeading);
 
+const levelLabel = document.createElement("LABEL");
+levelLabel.innerText="choose Level : "
+const levelSelect = document.createElement("SELECT");
+const easyLevel = document.createElement("option");
+const hardLevel = document.createElement("option");
+easyLevel.innerText = "Easy";
+hardLevel.innerText = "hard";
+levelSelect.add(easyLevel);
+levelSelect.add(hardLevel);
+
+let word = "";
+const easyWords=["COW","FOX","CAT","LION","KIA","HONDA","TOYOTA","JEEP","ARM","LEG","EYE","NOSE","RED","BLUE","GREEN","BLACK"];
+const HARDWords=["Crocodile","CHEETAH","Elephant","SQUIRREL","CHEVORLET","MERCEDES","CADILLAC","VOLKSWAGEN","SHOULDER","STOMACH","KIDNEY","TONGUE","BEIGE","TURQUOISE","LILAC","Brick"];
+word=easyWords[Math.floor(Math.random() * easyWords.length)];
+
+questionDiv.append(levelLabel);
+questionDiv.append(levelSelect);
+
 main.append(questionDiv);
 
 const answerDiv = document.createElement("div");
 answerDiv.className = "answer";
 
-const word = "HANGMAN";
+
 let maskedWord = "#".repeat(word.length);
 
 const maskedAnswerWord = document.createElement("h2");
 maskedAnswerWord.innerText = maskedWord.split("").join(" ");
 answerDiv.append(maskedAnswerWord);
+
+
 
 main.append(answerDiv);
 

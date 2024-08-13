@@ -59,6 +59,10 @@ button:active {
     background-color: #F67280; /* Lighter Red */
     transform: translateY(-3px);
 }
+
+.answer{
+    display: grid;
+}
 .choice{
     display: grid;
     gap: 10px;

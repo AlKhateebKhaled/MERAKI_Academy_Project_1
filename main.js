@@ -156,3 +156,20 @@ for (let i = 0; i < 26; i++) {
 choiceDiv.append(chooseHeading);
 choiceDiv.append(buttonsDiv);
 choiceDiv.append(imageDiv);
+
+const clickSound = new Audio("click.wav");
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    clickSound.play();
+  });
+});
+
+const backgroundMusic = document.querySelector('#background-music');
+const muteButton = document.querySelector('#mute-button');
+let isMuted = false;
+
+muteButton.addEventListener('click', () => {
+    isMuted = !isMuted;
+    backgroundMusic.muted = isMuted;
+});

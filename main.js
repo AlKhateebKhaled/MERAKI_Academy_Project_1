@@ -1,4 +1,14 @@
+const welcomeScreen = document.querySelector("#welcome-screen");
+const gameContent = document.querySelector("#game-content");
+const startGameBtn = document.querySelector("#start-game-btn");
 const main = document.querySelector("main");
+const header = document.querySelector("header");
+const body = document.querySelector("body");
+
+gameContent.append(header);
+gameContent.append(main);
+
+
 
 let points = 0;
 
@@ -57,7 +67,6 @@ const hardWords = [
   "Brick",
 ];
 const timer = () => {
-
   let countdownNumber = 30;
   const countdownInterval = setInterval(() => {
     countdownDiv.textContent = "Timer :" + countdownNumber + " seconds";
@@ -78,22 +87,21 @@ const timer = () => {
       playAgainFunc();
     }
   }, 1000);
+
+  return countdownInterval;
 };
 
 const level_Func = (e) => {
   if (e.target.value === "Easy") {
     word = easyWords[Math.floor(Math.random() * easyWords.length)];
     levelStatus = "Easy";
-    timer();
   } else if (e.target.value === "Hard") {
     word = hardWords[Math.floor(Math.random() * hardWords.length)];
     levelStatus = "Hard";
-    timer();
   } else if (e.target.value === "Master") {
     word = hardWords[Math.floor(Math.random() * hardWords.length)];
     levelStatus = "Master";
-    timer();
- }
+  }
 
   maskedWord = "#".repeat(word.length);
   maskedAnswerWord.innerText = maskedWord.split("").join(" ");
@@ -101,6 +109,7 @@ const level_Func = (e) => {
   enableAllButtons();
   hint.innerText = "";
   hintBtn.disabled = false;
+  countdownInterval = timer();
 };
 const levelDiv = document.createElement("div");
 levelDiv.className = "level";
@@ -314,6 +323,7 @@ const click_func = (e) => {
     maskedAnswerWord.innerText = maskedWord.split("").join(" ");
 
     if (maskedWord === word) {
+      clearInterval(countdownInterval);
       imageResult.src = "hangman_won.jpg";
 
       correctAnswer.innerText = "Good Job , The correct answer is: " + word;
@@ -329,6 +339,7 @@ const click_func = (e) => {
     if (incorrectGuesses < hangmanImages.length - 1) {
       imageResult.src = hangmanImages[incorrectGuesses];
     } else {
+      clearInterval(countdownInterval); // Stop the timer when the player loses
       imageResult.src = hangmanImages[maxIncorrectGuesses];
 
       correctAnswer.innerText = "Hard Luck , The correct answer is: " + word;
@@ -350,8 +361,8 @@ for (let i = 0; i < 26; i++) {
   const alphabetButton = document.createElement("button");
   alphabetButton.textContent = String.fromCharCode(65 + i); // A = 65, B = 66, ..., Z = 90
   alphabetButton.disabled = true;
-  alphabetButton.opacity = "0.6";
-  alphabetButton.cursor = "not-allowed";
+  alphabetButton.style.opacity = "0.6";
+  alphabetButton.style.cursor = "not-allowed";
   buttonsDiv.append(alphabetButton);
 
   alphabetButton.addEventListener("click", click_func);
@@ -379,3 +390,35 @@ muteButton.addEventListener("click", () => {
   isMuted = !isMuted;
   backgroundMusic.muted = isMuted;
 });
+
+const toggleSwitch = document.createElement("button");
+toggleSwitch.className = "toggle-Switch";
+toggleSwitch.textContent = "Dark Mode";
+toggleSwitch.disabled = true;
+toggleSwitch.style.opacity = "0.6";
+toggleSwitch.style.cursor = "not-allowed"; 
+
+toggleSwitch.addEventListener("click", () => {
+  body.classList.toggle("dark-mode");
+  body.classList.toggle("light-mode");
+
+  if (toggleSwitch.textContent === "Dark Mode") {
+    toggleSwitch.textContent = "Light Mode";
+    toggleSwitch.style.backgroundColor = "#ECF0F1";
+    toggleSwitch.style.color = "#131414";
+  } else {
+    toggleSwitch.textContent = "Dark Mode";
+    toggleSwitch.style.backgroundColor = "#131414";
+    toggleSwitch.style.color = "#ECF0F1";
+  }
+});
+
+startGameBtn.addEventListener("click", () => {
+  welcomeScreen.style.display = "none";
+  gameContent.style.display = "block";
+  toggleSwitch.disabled = false;
+  toggleSwitch.style.opacity = "1";
+toggleSwitch.style.cursor = "pointer"; 
+});
+
+body.append(toggleSwitch);

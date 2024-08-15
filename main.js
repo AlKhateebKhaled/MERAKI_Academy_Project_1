@@ -13,12 +13,12 @@ let points = 0;
 const questionDiv = document.createElement("div");
 questionDiv.className = "question";
 
-const questionHeading = document.createElement("h3");
+const questionHeading = document.createElement("h");
 questionHeading.className = "Guess";
 questionHeading.innerText = "Guess the word";
 
-const totalResult = document.createElement("h4");
-totalResult.className = "Guess";
+const totalResult = document.createElement("h");
+totalResult.className = "totalResult";
 totalResult.innerText = "Total Points : " + points;
 
 questionDiv.append(questionHeading);
@@ -74,7 +74,12 @@ const timer = () => {
       clearInterval(countdownInterval);
       countdownDiv.textContent = "Time Out";
       imageResult.src = hangmanImages[maxIncorrectGuesses];
-      correctAnswer.innerText = "Hard Luck , The correct answer is: " + word;
+      correctAnswer.innerText = "GameOver";
+      correctAnswer.style.background = "red";
+      hintDiv.style.display = "none";
+      levelDiv.style.display = "none";
+      answerDiv.style.color = "red";
+      maskedWord = word;
       disableAllButtons();
       levelSelect.disabled = true;
       hintBtn.disabled = true;
@@ -229,16 +234,16 @@ const buttonsDiv = document.createElement("div");
 buttonsDiv.className = "characters_buttons";
 
 const imageResult = document.createElement("img");
-imageResult.src = "hangman_start.jpg";
+imageResult.src = "hangman_start.png";
 
 const hangmanImages = [
-  "hangman_start.jpg",
-  "hangman_1.jpg",
-  "hangman_2.jpg",
-  "hangman_3.jpg",
-  "hangman_4.jpg",
-  "hangman_5.jpg",
-  "hangman_GameOver.jpg",
+  "hangman_start.png",
+  "hangman_1.png",
+  "hangman_2.png",
+  "hangman_3.png",
+  "hangman_4.png",
+  "hangman_5.png",
+  "hangman_GameOver.gif",
 ];
 
 let incorrectGuesses = 0;
@@ -278,6 +283,9 @@ const playAgainFunc = () => {
     levelSelect.disabled = false;
     totalResult.innerText = "";
     countdownDiv.textContent = "";
+    hintDiv.style.display = "block";
+    levelDiv.style.display = "block";
+    answerDiv.style.color = "black";
     playAgainButton.remove();
   });
 };
@@ -315,9 +323,13 @@ const click_func = (e) => {
 
     if (maskedWord === word) {
       clearInterval(countdownInterval);
-      imageResult.src = "hangman_won.jpg";
-      correctAnswer.style.color = "Green";
-      correctAnswer.innerText = "Good Job , The correct answer is: " + word;
+      imageResult.src = "hangman_won.gif";
+      correctAnswer.style.background = "Green";
+      correctAnswer.innerText = "Thanks For Saving Me!";
+      hintDiv.style.display = "none";
+      levelDiv.style.display = "none";
+      maskedWord = word;
+      answerDiv.style.color = "green";
       disableAllButtons();
       levelSelect.disabled = true;
       hintBtn.disabled = true;
@@ -333,7 +345,12 @@ const click_func = (e) => {
       clearInterval(countdownInterval);
       imageResult.src = hangmanImages[maxIncorrectGuesses];
 
-      correctAnswer.innerText = "Hard Luck , The correct answer is: " + word;
+      correctAnswer.innerText = "GameOver";
+      correctAnswer.style.background = "red";
+      hintDiv.style.display = "none";
+      levelDiv.style.display = "none";
+      maskedWord = word;
+      answerDiv.style.color = "red";
       disableAllButtons();
       levelSelect.disabled = true;
       hintBtn.disabled = true;

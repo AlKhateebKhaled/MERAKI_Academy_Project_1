@@ -65,6 +65,7 @@ header {
     color: var(--header-text-color);
     font-size: 2.5rem;
     font-weight:bold;
+    width: 100%;
 }
 
 main {
@@ -170,9 +171,53 @@ button:active {
 }
 
 @media (max-width: 600px) {
-    .characters_buttons {
-        grid-template-columns: repeat(4, 1fr);
-    }
+
+    main img {
+            grid-area: footer;
+            justify-self: center;
+            height: 400px;
+            max-width: 150px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        .level .select_level {
+            font-size: 0.8rem;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        
+        }
+        .level {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 10px;
+            max-width: 100px;
+        }
+        .characters_buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+        .characters_buttons button {
+            background-color: var(--button-bg-color);
+            border-radius: 10px;
+            color: var(--button-text-color);
+            padding: 5px 10px;
+            cursor: pointer;
+            box-shadow: 0 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        
+        #welcome-screen h1 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            padding-top: 50px;
+        }
+        
+
 }
 
 @media (min-width: 992px) {
@@ -222,6 +267,7 @@ button:active {
 .level label {
     font-size: 1 rem;
     color: var(--header-bg-color);
+
 }
 
 .select_level {
@@ -230,6 +276,7 @@ button:active {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
 .extra-info, .more-info, .credits, .social-media {

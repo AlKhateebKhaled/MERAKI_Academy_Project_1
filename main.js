@@ -328,7 +328,7 @@ const click_func = (e) => {
       correctAnswer.innerText = "Thanks For Saving Me!";
       hintDiv.style.display = "none";
       levelDiv.style.display = "none";
-      maskedAnswerWord.innerText = word.split("").join(" ");  // Show the full word
+      maskedAnswerWord.innerText = word.split("").join(" "); 
       answerDiv.style.color = "green";
       disableAllButtons();
       levelSelect.disabled = true;
@@ -349,7 +349,7 @@ const click_func = (e) => {
       correctAnswer.style.background = "red";
       hintDiv.style.display = "none";
       levelDiv.style.display = "none";
-      maskedAnswerWord.innerText = word.split("").join(" ");  // Show the full word
+      maskedAnswerWord.innerText = word.split("").join(" "); 
       answerDiv.style.color = "red";
       disableAllButtons();
       levelSelect.disabled = true;
@@ -367,7 +367,7 @@ const click_func = (e) => {
 
 for (let i = 0; i < 26; i++) {
   const alphabetButton = document.createElement("button");
-  alphabetButton.textContent = String.fromCharCode(65 + i); // A = 65, B = 66, ..., Z = 90
+  alphabetButton.textContent = String.fromCharCode(65 + i); 
   alphabetButton.disabled = true;
   alphabetButton.style.opacity = "0.6";
   alphabetButton.style.cursor = "not-allowed";

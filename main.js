@@ -8,8 +8,6 @@ const body = document.querySelector("body");
 gameContent.append(header);
 gameContent.append(main);
 
-
-
 let points = 0;
 
 const questionDiv = document.createElement("div");
@@ -75,9 +73,7 @@ const timer = () => {
     if (countdownNumber < 0) {
       clearInterval(countdownInterval);
       countdownDiv.textContent = "Time Out";
-
       imageResult.src = hangmanImages[maxIncorrectGuesses];
-
       correctAnswer.innerText = "Hard Luck , The correct answer is: " + word;
       disableAllButtons();
       levelSelect.disabled = true;
@@ -232,13 +228,8 @@ chooseHeading.innerText = "Choose a character:";
 const buttonsDiv = document.createElement("div");
 buttonsDiv.className = "characters_buttons";
 
-const imageDiv = document.createElement("div");
-imageDiv.className = "result";
-
 const imageResult = document.createElement("img");
 imageResult.src = "hangman_start.jpg";
-imageResult.alt = "hangman result";
-imageDiv.append(imageResult);
 
 const hangmanImages = [
   "hangman_start.jpg",
@@ -325,7 +316,7 @@ const click_func = (e) => {
     if (maskedWord === word) {
       clearInterval(countdownInterval);
       imageResult.src = "hangman_won.jpg";
-
+      correctAnswer.style.color = "Green";
       correctAnswer.innerText = "Good Job , The correct answer is: " + word;
       disableAllButtons();
       levelSelect.disabled = true;
@@ -339,7 +330,7 @@ const click_func = (e) => {
     if (incorrectGuesses < hangmanImages.length - 1) {
       imageResult.src = hangmanImages[incorrectGuesses];
     } else {
-      clearInterval(countdownInterval); // Stop the timer when the player loses
+      clearInterval(countdownInterval);
       imageResult.src = hangmanImages[maxIncorrectGuesses];
 
       correctAnswer.innerText = "Hard Luck , The correct answer is: " + word;
@@ -370,7 +361,7 @@ for (let i = 0; i < 26; i++) {
 
 choiceDiv.append(chooseHeading);
 choiceDiv.append(buttonsDiv);
-main.append(imageDiv);
+main.append(imageResult);
 
 const clickSound = document.querySelector("#click-sound");
 const buttons = document.querySelectorAll("button");
@@ -396,11 +387,10 @@ toggleSwitch.className = "toggle-Switch";
 toggleSwitch.textContent = "Dark Mode";
 toggleSwitch.disabled = true;
 toggleSwitch.style.opacity = "0.6";
-toggleSwitch.style.cursor = "not-allowed"; 
+toggleSwitch.style.cursor = "not-allowed";
 
 toggleSwitch.addEventListener("click", () => {
   body.classList.toggle("dark-mode");
-  body.classList.toggle("light-mode");
 
   if (toggleSwitch.textContent === "Dark Mode") {
     toggleSwitch.textContent = "Light Mode";
@@ -418,7 +408,7 @@ startGameBtn.addEventListener("click", () => {
   gameContent.style.display = "block";
   toggleSwitch.disabled = false;
   toggleSwitch.style.opacity = "1";
-toggleSwitch.style.cursor = "pointer"; 
+  toggleSwitch.style.cursor = "pointer";
 });
 
 body.append(toggleSwitch);

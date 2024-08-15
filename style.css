@@ -216,7 +216,9 @@ button:active {
             margin-bottom: 20px;
             padding-top: 50px;
         }
-        
+        .question  .correctAnswer {
+            font-size: 2.5rem;
+        }
 
 }
 

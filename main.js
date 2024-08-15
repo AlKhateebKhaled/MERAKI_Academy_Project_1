@@ -79,7 +79,7 @@ const timer = () => {
       hintDiv.style.display = "none";
       levelDiv.style.display = "none";
       answerDiv.style.color = "red";
-      maskedWord = word;
+      maskedAnswerWord.innerText = word.split("").join(" ");  // Show the full word
       disableAllButtons();
       levelSelect.disabled = true;
       hintBtn.disabled = true;
@@ -328,7 +328,7 @@ const click_func = (e) => {
       correctAnswer.innerText = "Thanks For Saving Me!";
       hintDiv.style.display = "none";
       levelDiv.style.display = "none";
-      maskedWord = word;
+      maskedAnswerWord.innerText = word.split("").join(" ");  // Show the full word
       answerDiv.style.color = "green";
       disableAllButtons();
       levelSelect.disabled = true;
@@ -349,7 +349,7 @@ const click_func = (e) => {
       correctAnswer.style.background = "red";
       hintDiv.style.display = "none";
       levelDiv.style.display = "none";
-      maskedWord = word;
+      maskedAnswerWord.innerText = word.split("").join(" ");  // Show the full word
       answerDiv.style.color = "red";
       disableAllButtons();
       levelSelect.disabled = true;
@@ -390,7 +390,7 @@ buttons.forEach((button) => {
 
 const backgroundMusic = document.querySelector("#background-music");
 const muteButton = document.querySelector("#mute-button");
-let isMuted = true;
+let isMuted = false;
 
 backgroundMusic.play();
 

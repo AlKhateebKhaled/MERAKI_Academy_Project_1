@@ -281,7 +281,7 @@ const playAgainFunc = () => {
     hint.innerText = "";
     hintBtn.disabled = true;
     levelSelect.disabled = false;
-    totalResult.innerText = "";
+    totalResult.innerText = "Total Points : " + points;
     countdownDiv.textContent = "";
     hintDiv.style.display = "block";
     levelDiv.style.display = "block";
